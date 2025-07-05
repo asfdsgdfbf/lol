@@ -14,46 +14,43 @@
       font-family: sans-serif;
     }
 
-    #start {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .touch-area {
       width: 100vw;
       height: 100vh;
-      font-size: 36px;
-      background: #222;
-      color: white;
-      border: none;
-      cursor: pointer;
+      background: black;
       display: flex;
       justify-content: center;
       align-items: center;
+      color: white;
+      font-size: 32px;
       text-align: center;
-    }
-
-    #start:hover {
-      background: #444;
+      user-select: none;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <button id="start">Нажмите, чтобы войти</button>
+  <div class="touch-area" id="touchArea">Нажмите или коснитесь экрана</div>
 
   <audio id="myAudio" src="sound.mp3" loop></audio>
 
   <script>
-    const btn = document.getElementById('start');
     const audio = document.getElementById('myAudio');
+    const touchArea = document.getElementById('touchArea');
 
-    btn.addEventListener('click', () => {
+    function startAudio() {
       audio.play();
-      btn.remove(); // Удаляем кнопку после запуска
-    });
+      touchArea.remove(); // Удаляем экран после запуска
+    }
+
+    // Слушаем касание или клик
+    touchArea.addEventListener('click', startAudio);
+    touchArea.addEventListener('touchstart', startAudio);
 
     // Попытка автозапуска (может не сработать)
     window.addEventListener('load', () => {
       audio.play().catch(() => {
-        // Ожидаем взаимодействия
+        // Ждём взаимодействия
       });
     });
 
