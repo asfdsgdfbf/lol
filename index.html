@@ -3,7 +3,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Авто</title>
+  <title>Автозвук</title>
   <style>
     html, body {
       margin: 0;
@@ -12,47 +12,48 @@
       height: 100%;
       background: black;
       font-family: sans-serif;
+      overflow: hidden;
     }
 
-    .touch-area {
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100vw;
       height: 100vh;
       background: black;
+      color: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      color: white;
-      font-size: 32px;
+      font-size: 28px;
       text-align: center;
+      z-index: 9999;
       user-select: none;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div class="touch-area" id="touchArea">Нажмите или коснитесь экрана</div>
+  <div id="overlay">Коснитесь экрана, чтобы начать</div>
 
   <audio id="myAudio" src="sound.mp3" loop></audio>
 
   <script>
     const audio = document.getElementById('myAudio');
-    const touchArea = document.getElementById('touchArea');
+    const overlay = document.getElementById('overlay');
 
     function startAudio() {
-      audio.play();
-      touchArea.remove(); // Удаляем экран после запуска
+      audio.play().then(() => {
+        overlay.remove(); // Удаляем затемнение после запуска
+      }).catch((e) => {
+        console.warn("Не удалось воспроизвести звук:", e);
+      });
     }
 
-    // Слушаем касание или клик
-    touchArea.addEventListener('click', startAudio);
-    touchArea.addEventListener('touchstart', startAudio);
-
-    // Попытка автозапуска (может не сработать)
-    window.addEventListener('load', () => {
-      audio.play().catch(() => {
-        // Ждём взаимодействия
-      });
-    });
+    // Слушаем любое касание или клик
+    document.addEventListener('click', startAudio, { once: true });
+    document.addEventListener('touchstart', startAudio, { once: true });
 
     // Защита от паузы
     audio.addEventListener('pause', () => {
