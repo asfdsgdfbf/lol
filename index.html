@@ -8,22 +8,27 @@
     html, body {
       margin: 0;
       padding: 0;
+      width: 100%;
       height: 100%;
       background: black;
       font-family: sans-serif;
     }
 
     #start {
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      font-size: 32px;
+      font-size: 36px;
       background: #222;
       color: white;
       border: none;
       cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
 
     #start:hover {
@@ -32,7 +37,7 @@
   </style>
 </head>
 <body>
-  <button id="start">Войти на сайт</button>
+  <button id="start">Нажмите, чтобы войти</button>
 
   <audio id="myAudio" src="sound.mp3" loop></audio>
 
