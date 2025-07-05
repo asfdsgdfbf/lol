@@ -5,23 +5,29 @@
   <meta charset="UTF-8">
   <title>Автозвук</title>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
       background: black;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       font-family: sans-serif;
     }
+
     #start {
-      font-size: 24px;
-      padding: 20px;
-      background: #444;
-      border: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      font-size: 32px;
+      background: #222;
       color: white;
+      border: none;
       cursor: pointer;
+    }
+
+    #start:hover {
+      background: #444;
     }
   </style>
 </head>
@@ -46,7 +52,7 @@
       });
     });
 
-    // Блокировка паузы (если пользователь попытается остановить)
+    // Защита от паузы
     audio.addEventListener('pause', () => {
       audio.play();
     });
